@@ -151,6 +151,46 @@ if (grep -Fiq "hg+" requirements.txt) then
   pip install --use-mirrors mercurial | cleanup | indent
 fi
 
+puts-step "CACHE_DIR: $CACHE_DIR"
+
+# Install GEOS.
+if [ ! -d $CACHE_DIR/geos ]; then
+    puts-step "Fetching GEOS 3.3.2"
+    curl -O https://s3.amazonaws.com/cirheroku/geos-3.3.2-herkou.tar.gz > /dev/null 2>&1
+    puts-step "Installing GEOS 3.3.2"
+    tar xzvf geos-3.3.2-herkou.tar.gz > /dev/null 2>&1
+    deep-mv geos $CACHE_DIR/geos
+    rm geos-3.3.2-herkou.tar.gz
+else
+    puts-step "GEOS 3.3.2 detected"
+fi
+
+# Install Proj.4
+if [ ! -d $CACHE_DIR/proj4 ]; then
+    puts-step "Fetching Proj.4 4.7.0"
+    curl -O https://s3.amazonaws.com/cirheroku/proj4-4.7.0-heroku.tar.gz > /dev/null 2>&1
+    puts-step "Installing Proj.4 4.7.0"
+    tar xzvf proj4-4.7.0-heroku.tar.gz > /dev/null 2>&1
+    deep-mv proj4 $CACHE_DIR/proj4
+    rm proj4-4.7.0-heroku.tar.gz
+else
+    puts-step "Proj.4 4.7.0 detected"
+fi
+
+# Install GDAL
+if [ ! -d $CACHE_DIR/gdal ]; then
+    cd $BUILD_DIR
+    puts-step "Fetching GDAL 1.8.1"
+    curl -O https://s3.amazonaws.com/cirheroku/gdal-1.8.1-heroku.tar.gz > /dev/null 2>&1
+    puts-step "Installing GDAL 1.8.1"
+    tar xzvf gdal-1.8.1-heroku.tar.gz > /dev/null 2>&1
+    deep-mv gdal $CACHE_DIR/gdal
+    rm gdal-1.8.1-heroku.tar.gz
+else
+    puts-step "GDAL 1.8.1 detected"
+fi
+
+
 # Install dependencies with Pip.
 puts-step "Installing dependencies using Pip (1.2.1)"
 pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/src | cleanup | indent
