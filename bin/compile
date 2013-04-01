@@ -198,7 +198,12 @@ cp -R $CACHE_DIR/geos .geodjango
 cp -R $CACHE_DIR/proj4 .geodjango
 cp -R $CACHE_DIR/gdal .geodjango
 
-# Install dependencies with Pip.
+# Install dependencies with Pip
+
+#TEMPORARY
+puts-step "Uninstalling PIL manually..."
+pip uninstall PIL
+
 puts-step "Installing dependencies using Pip (1.2.1)"
 pip install --use-mirrors -r requirements.txt --exists-action=w --src=./.heroku/src | cleanup | indent
 
