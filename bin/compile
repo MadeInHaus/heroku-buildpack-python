@@ -161,6 +161,7 @@ if [ ! -d $CACHE_DIR/geos ]; then
     curl -O https://s3.amazonaws.com/cirheroku/geos-3.3.2-herkou.tar.gz > /dev/null 2>&1
     puts-step "Installing GEOS 3.3.2"
     tar xzvf geos-3.3.2-herkou.tar.gz > /dev/null 2>&1
+    mkdir -p $CACHE_DIR/geos
     deep-mv geos $CACHE_DIR/geos
     rm geos-3.3.2-herkou.tar.gz
 else
@@ -173,6 +174,7 @@ if [ ! -d $CACHE_DIR/proj4 ]; then
     curl -O https://s3.amazonaws.com/cirheroku/proj4-4.7.0-heroku.tar.gz > /dev/null 2>&1
     puts-step "Installing Proj.4 4.7.0"
     tar xzvf proj4-4.7.0-heroku.tar.gz > /dev/null 2>&1
+    mkdir -p $CACHE_DIR/proj4
     deep-mv proj4 $CACHE_DIR/proj4
     rm proj4-4.7.0-heroku.tar.gz
 else
@@ -186,6 +188,7 @@ if [ ! -d $CACHE_DIR/gdal ]; then
     curl -O https://s3.amazonaws.com/cirheroku/gdal-1.8.1-heroku.tar.gz > /dev/null 2>&1
     puts-step "Installing GDAL 1.8.1"
     tar xzvf gdal-1.8.1-heroku.tar.gz > /dev/null 2>&1
+    mkdir -p $CACHE_DIR/gdal
     deep-mv gdal $CACHE_DIR/gdal
     rm gdal-1.8.1-heroku.tar.gz
 else
